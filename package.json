@@ -1,0 +1,12 @@
+{
+  "name": "mongodb-migration",
+  "version": "1.0.0",
+  "description": "helper to auto-migrate a database",
+  "main": "index.js",
+  "author": "Clement JACOB <clement.jacob@allegorithmic.com>",
+  "contributors": "Benoit BARBIER <benoit.barbier@allegorithmic.com>",
+  "dependencies": {
+      "lodash": "^4.0.0",
+        "require-dir": "^0.3.2"
+  }
+}
