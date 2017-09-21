@@ -48,22 +48,31 @@ exports.autoMigrate = async function(db, absoluteMigrationsDir) {
 
   if (lockedForThisService) return;
 
-  console.log(`${migrationsToApply.length} migration(s) to apply...`);
+  let error = null;
+  try {
+    console.log(`${migrationsToApply.length} migration(s) to apply...`);
 
-  for (const name of migrationsToApply) {
-    console.log(` - applying migration ${name}`);
-    const newVersion = MIGRATION_ID_RE.exec(name)[1];
-    await migrations[name].up(db);
-    await col.findOneAndUpdate(
-      { _id: 'default' },
-      { _id: 'default', currentVersion: newVersion },
-      { upsert: true }
-    );
-    console.log(` - done applying migration ${name}`);
+    for (const name of migrationsToApply) {
+      console.log(` - applying migration ${name}`);
+      const newVersion = MIGRATION_ID_RE.exec(name)[1];
+      await migrations[name].up(db);
+      await col.findOneAndUpdate(
+        { _id: 'default' },
+        { _id: 'default', currentVersion: newVersion },
+        { upsert: true }
+      );
+      console.log(` - done applying migration ${name}`);
+    }
+    console.log(`done applying all migrations`);
+  } catch (err) {
+    error = err;
+    console.log('Migration failed: ' + err);
   }
 
   //unlock database
   await col.updateOne({ _id: 'lock' }, { _id: 'lock', locked: false });
 
-  console.log(`done applying all migrations`);
+  if (error) {
+    throw error;
+  }
 };

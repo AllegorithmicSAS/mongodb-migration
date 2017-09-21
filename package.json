@@ -5,8 +5,20 @@
   "main": "index.js",
   "author": "Clement JACOB <clement.jacob@allegorithmic.com>",
   "contributors": "Benoit BARBIER <benoit.barbier@allegorithmic.com>",
+  "scripts": {
+    "test": "jest"
+  },
   "dependencies": {
-      "lodash": "^4.0.0",
-        "require-dir": "^0.3.2"
+    "lodash": "^4.0.0",
+    "require-dir": "^0.3.2"
+  },
+  "devDependencies": {
+    "jest": "^21.1.0"
+  },
+  "jest": {
+    "transform": {
+      "^.+\\.js$": "<rootDir>/jest.preprocessor.js"
+    },
+    "transformIgnorePatterns": []
   }
 }
