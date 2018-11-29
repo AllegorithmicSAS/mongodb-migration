@@ -1,6 +1,6 @@
 {
   "name": "@allegorithmic/mongodb-migration",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "helper to auto-migrate a database",
   "main": "index.js",
   "author": "Clement JACOB <clement.jacob@allegorithmic.com>",

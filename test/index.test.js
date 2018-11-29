@@ -22,17 +22,17 @@ describe('Test autoMigrate', () => {
     expect(this.collection.findOne).toBeCalledWith({ _id: 'default' });
     expect(this.collection.findOneAndUpdate).toBeCalledWith(
       { _id: 'lock' },
-      { _id: 'lock', locked: true },
+      { $set: { _id: 'lock', locked: true } },
       { upsert: true }
     );
     expect(this.collection.findOneAndUpdate).toBeCalledWith(
       { _id: 'default' },
-      { _id: 'default', currentVersion: '0001' },
+      { $set: { _id: 'default', currentVersion: '0001' } },
       { upsert: true }
     );
     expect(this.collection.updateOne).toBeCalledWith(
       { _id: 'lock' },
-      { _id: 'lock', locked: false }
+      { $set: { locked: false } }
     );
     expect(this.dummydb.migration1).toBeTruthy();
   });
@@ -47,12 +47,12 @@ describe('Test autoMigrate', () => {
     expect(this.collection.findOne).toBeCalledWith({ _id: 'default' });
     expect(this.collection.findOneAndUpdate).toBeCalledWith(
       { _id: 'lock' },
-      { _id: 'lock', locked: true },
+      { $set: { _id: 'lock', locked: true } },
       { upsert: true }
     );
     expect(this.collection.updateOne).toBeCalledWith(
       { _id: 'lock' },
-      { _id: 'lock', locked: false }
+      { $set: { locked: false } }
     );
     expect(this.dummydb.migration1).toBeFalsy();
   });
