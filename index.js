@@ -39,7 +39,7 @@ exports.autoMigrate = async function(db, absoluteMigrationsDir) {
   const lockedForThisService = _.get(
     await col.findOneAndUpdate(
       { _id: 'lock' },
-      { _id: 'lock', locked: true },
+      { $set: { _id: 'lock', locked: true } },
       { upsert: true }
     ),
     'value.locked',
@@ -58,7 +58,7 @@ exports.autoMigrate = async function(db, absoluteMigrationsDir) {
       await migrations[name].up(db);
       await col.findOneAndUpdate(
         { _id: 'default' },
-        { _id: 'default', currentVersion: newVersion },
+        { $set: { _id: 'default', currentVersion: newVersion } },
         { upsert: true }
       );
       console.log(` - done applying migration ${name}`);
@@ -70,7 +70,7 @@ exports.autoMigrate = async function(db, absoluteMigrationsDir) {
   }
 
   //unlock database
-  await col.updateOne({ _id: 'lock' }, { _id: 'lock', locked: false });
+  await col.updateOne({ _id: 'lock' }, { $set: { locked: false } });
 
   if (error) {
     throw error;

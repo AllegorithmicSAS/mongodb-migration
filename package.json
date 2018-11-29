@@ -1,6 +1,6 @@
 {
   "name": "@allegorithmic/mongodb-migration",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "helper to auto-migrate a database",
   "main": "index.js",
   "author": "Clement JACOB <clement.jacob@allegorithmic.com>",
@@ -19,7 +19,7 @@
     "require-dir": "^0.3.2"
   },
   "devDependencies": {
-    "jest": "^21.2.1"
+    "jest": "^23.6.0"
   },
   "jest": {
     "transform": {
